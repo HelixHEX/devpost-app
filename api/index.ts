@@ -3,13 +3,17 @@ import { QueryClient, useMutation } from "@tanstack/react-query";
 import { API_URL } from "@env";
 import Toast from "react-native-toast-message";
 import { getItem } from "../libs/storage";
+import { rtkApi } from "./rtkApi";
+
 axios.defaults.withCredentials = true;
+
 export const queryClient = new QueryClient();
 
+const URL = API_URL || 'http://localhost:5000/v1'
 // QUERIES
 export const getSignedinUser = async () => {
   const token = await getItem('token')
-  const res = await axios.get(API_URL + "/profile/me", {
+  const res = await axios.get(URL + "/profile/me", {
     headers: {
       Authorization: `Bearer ${token}`,
     }
@@ -26,7 +30,7 @@ export interface signinCredentials {
   password: string;
 }
 const signin = async (credentials: signinCredentials) => {
-  const res = await axios.post(API_URL + "/signin", credentials);
+  const res = await axios.post(URL + "/signin", credentials);
   return res.data;
 };
 
@@ -61,7 +65,7 @@ export const useSignin = () => {
   });
 };
 
-export interface signupCredentials {
+export interface SignupCredentials {
   name: string;
   email: string;
   password: string;
@@ -71,8 +75,8 @@ export interface signupCredentials {
   pronouns: string;
 }
 
-const signup = async (credentials: signupCredentials) => {
-  const res = await axios.post(API_URL + "/signup", credentials);
+const signup = async (credentials: SignupCredentials) => {
+  const res = await axios.post(URL + "/signup", credentials);
   return res.data;
 };
 
