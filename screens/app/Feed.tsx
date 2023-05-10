@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import {
+  ActivityIndicator,
   FlatList,
   StatusBar,
   StyleSheet,
@@ -9,7 +10,7 @@ import {
 import { AuthContext } from "../../contexts/AuthContext";
 import { deleteItem } from "../../libs/storage";
 import { useFeedQuery, useSignedinUserQuery } from "../../api/rtkApi";
-import { colors } from "../../libs/theme";
+import { colors, globalStyles } from "../../libs/theme";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import Text from "../../components/Text";
 import { LinearGradient } from "expo-linear-gradient";
@@ -33,13 +34,18 @@ const Feed = ({ route, navigation }: Props) => {
 
   if (!user) return null;
 
-  if (feedLoading) return <Text>Loading...</Text>;
+  if (feedLoading)
+    return (
+      <View style={globalStyles.loading}>
+        <ActivityIndicator />
+      </View>
+    );
   if (feedError) return <Text>Error</Text>;
   if (!feedData) return <Text>Error fetching feed</Text>;
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle={"light-content"} />
+      <StatusBar barStyle={"dark-content"} />
       <LinearGradient
         start={[0.0, 0.0]}
         end={[1.0, 1.0]}
@@ -56,7 +62,8 @@ const Feed = ({ route, navigation }: Props) => {
         <Text style={styles.heading}>Daily Feed</Text>
       </LinearGradient>
       <FlatList
-        // style={{ backgroundColor: "red" }}
+        onRefresh={() => refetchFeed()}
+        refreshing={feedLoading}
         data={feedData.feed}
         keyExtractor={(_item, index) => index.toString()}
         renderItem={({ item }) => <Changelog {...item} />}
@@ -69,6 +76,7 @@ const styles = StyleSheet.create({
   container: {
     height: "100%",
     backgroundColor: "white",
+    marginBottom: 10,
   },
   header: {
     backgroundColor: colors.purple["300"],

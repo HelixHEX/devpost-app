@@ -92,6 +92,29 @@ interface UsernameCheckResponse {
   message?: string;
 }
 
+interface ProjectsResponse {
+  projects: Project[];
+  success: boolean;
+}
+
+interface ProjectResponse {
+  project?: Project;
+  success: boolean;
+  message?: string;
+}
+
+interface ChangelogResponse {
+  changelog?: Changelog;
+  success: boolean;
+  message?: string;
+}
+
+interface UpdateProfileResponse {
+  user?: User;
+  success: boolean;
+  message?: string;
+}
+
 // REQUEST TYPES
 interface SigninRequest {
   email?: string;
@@ -106,4 +129,27 @@ interface SignupRequest {
   username: string;
   bio: string;
   pronouns: string;
+}
+
+interface ProjectRequest {
+  name: string;
+  description: string;
+}
+
+interface ChangelogRequest {
+  changelog: {
+    title: string;
+  body: string;
+  projectName: string;
+  },
+  setTitle: React.Dispatch<React.SetStateAction<string>>;
+  setBody: React.Dispatch<React.SetStateAction<string>>;
+}
+
+interface UpdateProfileRequest {
+  name: string;
+  bio: string;
+  pronouns: string;
+  username: string;
+  email: string;
 }

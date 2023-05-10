@@ -3,7 +3,6 @@ import Text from "./Text";
 import { colors } from "../libs/theme";
 
 type Props = {
-  placeholder?: string;
   value: string;
   onChangeText: (text: string) => void;
   style?: any;
@@ -11,30 +10,25 @@ type Props = {
   otherProps?: any;
   errorStyle?: any;
   label?: string;
-  placeholderTextColor?: string;
 };
 
 const Input = ({
   style,
-  placeholder,
   value,
   onChangeText,
   error,
   otherProps,
   errorStyle,
   label,
-  placeholderTextColor,
 }: Props) => {
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
       <TextInput
         {...otherProps}
-        placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
-        style={[{ ...style }, {color: style.color ? style.color : 'white'}, styles.input]}
-        placeholderTextColor={placeholderTextColor ? placeholderTextColor : colors.gray['100']}
+        style={[{ ...style }, {color: style && style.color ? style.color : 'white'}, styles.input]}
       />
       {error && (
         <Text

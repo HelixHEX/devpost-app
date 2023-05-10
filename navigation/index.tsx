@@ -15,6 +15,7 @@ import CreateProfile from "../screens/auth/CreateProfile";
 import NewChangelog from "../screens/app/NewChangelog";
 import Profile from "../screens/app/Profile";
 import { colors } from "../libs/theme";
+import { navigationRef } from "./RootNavigation";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -44,6 +45,11 @@ const TabNavigation = () => {
             let color = focused ? colors.purple["300"] : colors.gray["50"];
             return <Feather name="plus" size={24} color={color} />;
           },
+          headerShown: true,
+          headerTitleStyle: {
+            fontFamily: "Athiti-Bold",
+            color: colors.purple["300"],
+          },
         }}
         name="NewChangelog"
         component={NewChangelog}
@@ -54,7 +60,14 @@ const TabNavigation = () => {
             let color = focused ? colors.purple["300"] : colors.gray["50"];
             return <Feather name="user" size={24} color={color} />;
           },
+          headerShown: true,
+          headerTitle: "Profile",
+          headerTitleStyle: {
+            fontFamily: "Athiti-Bold",
+            color: colors.purple["300"],
+          },
         }}
+        
         name="Profile"
         component={Profile}
       />
@@ -69,11 +82,11 @@ const Navigation = () => {
 
   const [fontsLoaded] = useFonts({
     "Athiti-Bold": require("../assets/fonts/Athiti/Athiti-Bold.ttf"),
-    // "Athiti-ExtraLight": require("../assets/fonts/Athiti/Athiti-ExtraLight.ttf"),
-    // "Athiti-Light": require("../assets/fonts/Athiti/Athiti-Light.ttf"),
-    // "Athiti-Medium": require("../assets/fonts/Athiti/Athiti-Medium.ttf"),
+    "Athiti-ExtraLight": require("../assets/fonts/Athiti/Athiti-ExtraLight.ttf"),
+    "Athiti-Light": require("../assets/fonts/Athiti/Athiti-Light.ttf"),
+    "Athiti-Medium": require("../assets/fonts/Athiti/Athiti-Medium.ttf"),
     "Athiti-Regular": require("../assets/fonts/Athiti/Athiti-Regular.ttf"),
-    // "Athiti-SemiBold": require("../assets/fonts/Athiti/Athiti-SemiBold.ttf"),
+    "Athiti-SemiBold": require("../assets/fonts/Athiti/Athiti-SemiBold.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -87,7 +100,7 @@ const Navigation = () => {
   }
 
   return (
-    <NavigationContainer onReady={onLayoutRootView}>
+    <NavigationContainer ref={navigationRef} onReady={onLayoutRootView}>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,

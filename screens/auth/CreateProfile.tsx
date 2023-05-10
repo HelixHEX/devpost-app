@@ -48,7 +48,6 @@ const CreateProfile = ({ route, navigation }: Props) => {
             label="Name"
             value={name}
             onChangeText={setName}
-            placeholder="Name"
             style={{ backgroundColor: colors.gray["100"] }}
             error={error.name}
             errorStyle={{ color: "red" }}
@@ -57,7 +56,6 @@ const CreateProfile = ({ route, navigation }: Props) => {
             label="Bio"
             value={bio}
             onChangeText={setBio}
-            placeholder="Bio"
             style={{ backgroundColor: colors.gray["100"] }}
             otherProps={{ multiline: true }}
           />
@@ -65,7 +63,6 @@ const CreateProfile = ({ route, navigation }: Props) => {
             label="Pronouns"
             value={pronouns}
             onChangeText={setPronouns}
-            placeholder="Pronouns (ex: he/him, she/her, they/them)"
             style={{ backgroundColor: colors.gray["100"] }}
           />
           <TouchableOpacity

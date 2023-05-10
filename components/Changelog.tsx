@@ -28,13 +28,13 @@ const Line = ({ title, body }: { title: string; body: string }) => {
           style={{
             flexDirection: "row",
             marginLeft: -6,
-            marginTop: -5,
+            marginTop: -8,
           }}
         >
           <View style={styles.circle} />
           <Text style={styles.title}>{title}</Text>
         </View>
-        <View style={{ flexDirection: 'row', marginTop: -5 }}>
+        <View style={{ flexDirection: 'row', marginTop: -8 }}>
           <View style={[styles.line, { height: '90%' }]} />
           <Text style={styles.body}>{body}</Text>
         </View>
@@ -67,13 +67,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
   },
   title: {
-    color: colors.gray["50"],
-    fontSize: 15,
+    color: colors.gray["100"],
+    fontSize: 18,
     marginLeft: 20,
   },
   body: {
     marginTop: 20,
-    color: colors.gray["100"],
+    color: colors.gray["200"],
     marginLeft: 23
   },
 });

@@ -4,6 +4,7 @@ import { rtkApi } from "../api/rtkApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { persistReducer, persistStore } from "redux-persist";
+
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
