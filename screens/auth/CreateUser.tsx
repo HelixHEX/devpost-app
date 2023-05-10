@@ -1,4 +1,9 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import {
   rtkApi,
@@ -29,12 +34,16 @@ const Signup = ({ route, navigation }: Props) => {
   const dispatch = useDispatch();
 
   //DATA FETCHING
-  const { data: validUsername, isError: validUsernameError } =
-    useCheckUsernameQuery(username, { skip: username.length === 0 });
-  const { data: validEmail, isError: validEmailError } = useCheckEmailQuery(
-    email,
-    { skip: email.length === 0 }
-  );
+  const {
+    data: validUsername,
+    isError: validUsernameError,
+    isLoading: validatingUsername,
+  } = useCheckUsernameQuery(username, { skip: username.length === 0 });
+  const {
+    data: validEmail,
+    isError: validEmailError,
+    isLoading: validatingEmail,
+  } = useCheckEmailQuery(email, { skip: email.length === 0 });
 
   if (validEmailError) return <Text>Error checking Email</Text>;
   if (validUsernameError) return <Text>Error checking Username</Text>;
@@ -122,7 +131,7 @@ const Signup = ({ route, navigation }: Props) => {
             value={username}
             onChangeText={checkUsername}
             style={{
-              backgroundColor: colors.gray["100"],
+              backgroundColor: colors.gray["200"],
               fontWeight: "bold",
             }}
             error={error.username}
@@ -132,7 +141,7 @@ const Signup = ({ route, navigation }: Props) => {
             value={email}
             onChangeText={checkEmail}
             style={{
-              backgroundColor: colors.gray["100"],
+              backgroundColor: colors.gray["200"],
               color: "white",
               fontWeight: "bold",
             }}
@@ -143,7 +152,7 @@ const Signup = ({ route, navigation }: Props) => {
             value={password}
             onChangeText={setPassword}
             style={{
-              backgroundColor: colors.gray["100"],
+              backgroundColor: colors.gray["200"],
               color: "white",
               fontWeight: "bold",
             }}
@@ -154,7 +163,7 @@ const Signup = ({ route, navigation }: Props) => {
             value={confirmPassword}
             onChangeText={setConfirmPassword}
             style={{
-              backgroundColor: colors.gray["100"],
+              backgroundColor: colors.gray["200"],
               color: "white",
               fontWeight: "bold",
             }}
@@ -162,15 +171,27 @@ const Signup = ({ route, navigation }: Props) => {
             error={error.confirmPassword}
           />
 
-          <TouchableOpacity style={styles.button} onPress={handleSignup}>
-            <Text style={styles.btnText}>Signup</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() =>
+              validatingEmail || validatingUsername ? null : handleSignup()
+            }
+          >
+            {validatingEmail || validatingUsername ? (
+              <ActivityIndicator
+                style={{ alignSelf: "center" }}
+                color="white"
+              />
+            ) : (
+              <Text style={styles.btnText}>Signup</Text>
+            )}
           </TouchableOpacity>
           <Text style={{ marginTop: 8, color: "white" }}>
             {error.signupError}
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
             <Text
-              style={{ marginTop: 8, fontSize: 18, color: colors.gray["100"] }}
+              style={{ marginTop: 8, fontSize: 18, color: colors.gray["200"] }}
             >
               Already a user?{" "}
               <Text style={{ color: colors.purple["300"] }}>Signin</Text>
@@ -194,7 +215,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 30,
     fontWeight: "bold",
-    color: colors.gray["100"],
+    color: colors.gray["200"],
   },
   button: {
     marginTop: 20,

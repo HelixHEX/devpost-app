@@ -62,6 +62,7 @@ const Feed = ({ route, navigation }: Props) => {
         <Text style={styles.heading}>Daily Feed</Text>
       </LinearGradient>
       <FlatList
+        showsVerticalScrollIndicator={false}
         onRefresh={() => refetchFeed()}
         refreshing={feedLoading}
         data={feedData.feed}

@@ -1,4 +1,9 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { setItem } from "../../libs/storage";
 import { useSignedinUserQuery, useSignupMutation } from "../../api/rtkApi";
@@ -48,7 +53,7 @@ const CreateProfile = ({ route, navigation }: Props) => {
             label="Name"
             value={name}
             onChangeText={setName}
-            style={{ backgroundColor: colors.gray["100"] }}
+            style={{ backgroundColor: colors.gray["200"] }}
             error={error.name}
             errorStyle={{ color: "red" }}
           />
@@ -56,24 +61,29 @@ const CreateProfile = ({ route, navigation }: Props) => {
             label="Bio"
             value={bio}
             onChangeText={setBio}
-            style={{ backgroundColor: colors.gray["100"] }}
+            style={{ backgroundColor: colors.gray["200"] }}
             otherProps={{ multiline: true }}
           />
           <Input
             label="Pronouns"
             value={pronouns}
             onChangeText={setPronouns}
-            style={{ backgroundColor: colors.gray["100"] }}
+            style={{ backgroundColor: colors.gray["200"] }}
           />
-          <TouchableOpacity
-            disabled={isLoading}
-            style={styles.button}
-            onPress={handleSignup}
-          >
-            <Text style={styles.btnText}>Create Profile</Text>
+          <TouchableOpacity style={styles.button} onPress={handleSignup}>
+            {isLoading ? (
+              <ActivityIndicator
+                color="white"
+                style={{ alignSelf: "center" }}
+              />
+            ) : (
+              <Text style={styles.btnText}>Create Profile</Text>
+            )}
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
-            <Text style={{ marginTop: 8, fontSize: 18, color: colors.gray['100'] }}>
+            <Text
+              style={{ marginTop: 8, fontSize: 18, color: colors.gray["200"] }}
+            >
               Already a user?{" "}
               <Text style={{ color: colors.purple["300"] }}>Signin</Text>
             </Text>
@@ -101,7 +111,7 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 20,
     width: "100%",
-    backgroundColor: colors.purple['300'],
+    backgroundColor: colors.purple["300"],
     height: 48,
     borderRadius: 4,
     justifyContent: "center",
@@ -110,7 +120,7 @@ const styles = StyleSheet.create({
   btnText: {
     fontSize: 16,
     fontWeight: "bold",
-    color: 'white',
+    color: "white",
   },
 });
 

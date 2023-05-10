@@ -11,11 +11,11 @@ const Logo = ({ fontSize, theme="light" }: Props) => {
     <>
       {theme === "light" ? (
         <Text style={{ color: colors.purple['300'], fontWeight: "bold", fontSize }}>
-          <Text style={{ color: colors.gray["100"] }}>{"<"}</Text>
-          Devpost <Text style={{ color: colors.gray["100"] }}>{"/>"}</Text>
+          <Text style={{ color: colors.gray["200"] }}>{"<"}</Text>
+          Devpost <Text style={{ color: colors.gray["200"] }}>{"/>"}</Text>
         </Text>
       ) : (
-        <Text style={{ color: colors.gray['100'], fontWeight: "bold", fontSize }}>
+        <Text style={{ color: colors.gray['200'], fontWeight: "bold", fontSize }}>
           <Text style={{ color: 'white' }}>{"<"}</Text>
           Devpost <Text style={{ color: 'white' }}>{"/>"}</Text>
         </Text>
